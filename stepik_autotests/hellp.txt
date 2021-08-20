@@ -1,0 +1,44 @@
+source selenium_env/bin/activate
+
+def calc(x):
+	return str(math.log(abs(12*math.sin(int(x)))))
+
+browser.implicitly_wait(5)
+
+import os 
+current_dir = os.path.abspath(os.path.dirname(__file__))    # получаем путь к директории текущего исполняемого файла 
+file_path = os.path.join(current_dir, 'file.txt')           # добавляем к этому пути имя файла 
+element.send_keys(file_path)
+
+
+
+browser.execute_script("return arguments[0].scrollIntoView(true);", el)
+
+
+alert = browser.switch_to.alert
+alert.accept()
+alert_text = alert.text
+alert.dismiss()
+alert.send_keys("My answer")
+
+
+browser.switch_to.window(window_name)
+new_window = browser.window_handles[1]
+first_window = browser.window_handles[0]
+
+
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+button = WebDriverWait(browser, 5).until(
+        EC.element_to_be_clickable((By.ID, "verify")))
+
+
+@pytest.fixture(scope="function")
+def browser():
+    print("\nstart browser for test..")
+    browser = webdriver.Chrome()
+    yield browser
+    print("\nquit browser..")
+    browser.quit()
